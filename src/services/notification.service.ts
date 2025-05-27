@@ -1,6 +1,7 @@
 import { IOrderDocument, IOrderNotifcation } from '@eoladapo/jobman-shared';
 import { OrderNotificationModel } from '@order/models/notification.schema';
 import { socketIOOrderObject } from '@order/server';
+import { getOrdersByOrderId } from '@order/services/order.service';
 
 const createNotification = async (data: IOrderNotifcation): Promise<IOrderNotifcation> => {
   const notification: IOrderNotifcation = await OrderNotificationModel.create(data);
@@ -22,7 +23,9 @@ const markNotificationAsRead = async (notificationId: string): Promise<IOrderNot
     },
     { new: true }
   )) as IOrderNotifcation;
+  const order: IOrderDocument = await getOrdersByOrderId(notification.orderId);
   // TODO:  emit socket io event
+  socketIOOrderObject.emit('order notification read', order, notification);
   return notification;
 };
 

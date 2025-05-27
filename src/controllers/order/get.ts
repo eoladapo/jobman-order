@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { IOrderDocument } from '@eoladapo/jobman-shared';
 import { getOrdersByBuyerId, getOrdersByOrderId, getOrdersBySellersId } from '@order/services/order.service';
 
-const order = async (req: Request, res: Response): Promise<void> => {
+const orderId = async (req: Request, res: Response): Promise<void> => {
   const order: IOrderDocument = await getOrdersByOrderId(req.params.orderId);
   res.status(StatusCodes.OK).json({ message: 'Order by order id', order });
 };
@@ -18,4 +18,4 @@ const buyerOrders = async (req: Request, res: Response): Promise<void> => {
   res.status(StatusCodes.OK).json({ message: 'Seller orders', orders });
 };
 
-export { order, sellerOrders, buyerOrders };
+export { orderId, sellerOrders, buyerOrders };
