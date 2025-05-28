@@ -15,7 +15,7 @@ import { Channel } from 'amqplib';
 import { Server } from 'socket.io';
 import { consumerReviewFanoutMessages } from './queues/order.consumer';
 
-const SERVER_PORT = 4005;
+const SERVER_PORT = 4006;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'orderServer', 'debug');
 let orderChannel: Channel;
 let socketIOOrderObject: Server;
